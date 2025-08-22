@@ -26,11 +26,6 @@
 - **Transparent Fee Structures** with AI-optimized rates
 - **Global Accessibility** through Stellar network
 
-### ✅ **Well-Structured, Commented Code**
-- **Professional TypeScript/React** architecture
-- **Comprehensive documentation** with AI-generated insights
-- **Clean component structure** following best practices
-- **Extensive error handling** and user feedback
 
 ## 🌟 **Project Overview**
 
@@ -212,29 +207,6 @@ npm run verify:mainnet
 - **Code Quality**: 94/100
 - **Best Practices**: 96/100
 
-## 🤝 **Contributing**
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### **Development Workflow**
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests and documentation
-5. Submit a pull request
-
-## 📚 **Documentation**
-
-### **API Reference**
-- [Smart Contract API](docs/API.md)
-- [Frontend Components](docs/COMPONENTS.md)
-- [AI Integration Guide](docs/AI_INTEGRATION.md)
-
-### **User Guides**
-- [Getting Started](docs/GETTING_STARTED.md)
-- [Wallet Integration](docs/WALLET_INTEGRATION.md)
-- [Vault Management](docs/VAULT_MANAGEMENT.md)
-
 ## 🌍 **Equitable Finance Impact**
 
 AssetNest addresses key challenges in traditional finance:
@@ -256,18 +228,7 @@ AssetNest addresses key challenges in traditional finance:
 - 🧠 **AI-Powered Development** - Automated contract optimization
 - 🔒 **Enhanced Security** - AI-generated security patterns
 - ⚡ **Gas Efficiency** - AI-optimized smart contract operations
-- 🌍 **Global Impact** - Equitable finance for all
-
-## 📞 **Support & Community**
-
-- **Discord**: [Stella Community](https://discord.gg/stellar)
-- **Documentation**: [AssetNest Docs](https://docs.assetnest.stellar.org)
-- **Issues**: [GitHub Issues](https://github.com/AmaanSayyad/AssetNest/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/AmaanSayyad/AssetNest/discussions)
-
-## 📄 **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- 🌍 **Global Impact**
 
 ## 🙏 **Acknowledgments**
 
