@@ -36,18 +36,8 @@ import { allowedTokens } from "@/utils/adresses"
 import '@farcaster/auth-kit/styles.css';
 import { SignInButton } from '@farcaster/auth-kit';
 import { useProfile } from '@farcaster/auth-kit';
-import { AnchorWallet, Wallet, useAnchorWallet, useConnection, useWallet } from "@solana/wallet-adapter-react"
-
-import {
-    Program,
-    Idl,
-    AnchorProvider,
-    setProvider,
-    web3,
-  } from "@coral-xyz/anchor"
-import * as anchor from "@coral-xyz/anchor"; 
-import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
-import { VaultMinterIdl } from "@/programs/VaultMinter"
+import { sorobanVaultService } from "@/services/SorobanService"
+import { useWallet } from "@/walletmanager"
 
 export default function CreateFund() {
 
@@ -78,9 +68,7 @@ export default function CreateFund() {
 
     const [tokens, setTokens] = React.useState<string[]>([]);
 
-    const { connection } = useConnection();
-    const { publicKey } = useWallet();
-    const wallet = useAnchorWallet();
+    const { publicKey, connected } = useWallet();
 
     // function handleDateTimestamp(date: Date | undefined) {
     //     const safeDate = date || new Date();
@@ -128,47 +116,43 @@ export default function CreateFund() {
         // const perfFeeBps = perfFee * 100;
 
         try{
-            
-            const provider = new AnchorProvider(connection, wallet as AnchorWallet, {});
-            const program = new Program(VaultMinterIdl as Idl, "program address", provider);
-
-            console.log(VaultMinterIdl)
-
-            console.log("Teste"+ wallet);
-
-            const mintToken = anchor.web3.Keypair.generate();
-            const associateTokenProgram = new anchor.web3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
-            
-
-            const tokenAccount = anchor.utils.token.associatedAddress({
-                mint: mintToken.publicKey,
-                owner: publicKey as web3.PublicKey
-            });
-
-            
-            
-            const context = {
-                mintToken: mintToken.publicKey,
-                tokenAccount: tokenAccount,
-                associateTokenProgram: associateTokenProgram,
-                signer: publicKey as web3.PublicKey,
-                // rent: web3.SYSVAR_RENT_PUBKEY,
-                // systemProgram: web3.SystemProgram.programId,
-                // tokenProgram: TOKEN_PROGRAM_ID,
-
+            if (!connected || !publicKey) {
+                alert("Please connect your Stellar wallet first");
+                return;
             }
 
-            const txHash = await program.methods.createVault().
-                    accounts(context).signers([mintToken]).rpc()
+            if (!name || !ticker) {
+                alert("Please fill in vault name and ticker");
+                return;
+            }
 
+            console.log("Creating vault with Soroban...");
+            console.log("Name:", name);
+            console.log("Ticker:", ticker);
+            console.log("Admin Fee:", admFee);
+            console.log("Performance Fee:", perfFee);
+
+            // Convert fees to basis points (1% = 100 basis points)
+            const adminFeeBps = BigInt(Math.round(admFee * 100));
+            const performanceFeeBps = BigInt(Math.round(perfFee * 100));
+
+            // Create vault using Soroban smart contract
+            const vaultId = await sorobanVaultService.createVault(
+                name,
+                ticker,
+                adminFeeBps,
+                performanceFeeBps
+            );
+
+            console.log("Vault created successfully:", vaultId);
+
+            alert(`Vault ${name} (${ticker}) has been created successfully with ID: ${vaultId}`);
 
             navigator('/success');
 
         } catch(err){
-            console.log(err);
-            alert("Something went wrong! Try again");
-            
-
+            console.error("Error creating vault:", err);
+            alert(err instanceof Error ? err.message : "Something went wrong! Try again");
         }finally{
             setLoading(false);
         }   

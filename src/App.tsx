@@ -9,6 +9,7 @@ import CreateFund from './pages/CreateFund';
 import DepositorProfile from './pages/DepositorProfile';
 import { WalletProvider } from '@/walletmanager';
 import CryptoChart from '@/components/CryptoChart'; // Import CryptoChart component
+import AIIntegration from '@/pages/AIIntegration'; // Import AI Integration page
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/create-fund" element={<CreateFund />} />
               <Route path="/depositor/:address" element={<DepositorProfile />} />
               <Route path="/crypto-chart" element={<CryptoChart />} /> {/* Add CryptoChart route */}
+              <Route path="/ai-integration" element={<AIIntegration />} /> {/* Add AI Integration route */}
               <Route path="*" element={<div>404</div>} />
             </Route>
           </Routes>
